@@ -5,6 +5,8 @@ import { cartStore, Product } from '../stores/CartStore';
 import { ORDER_OPTIONS } from '../constants/orderOptions';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../../App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
   id: `p${i}`,
@@ -12,8 +14,10 @@ const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
   price: 150 + i * 10,
 }));
 
+type Navigation = NativeStackNavigationProp<RootStackParamList>;
+
 const CartScreen = observer(() => {
-  const navigaiton = useNavigation();
+  const navigaiton = useNavigation<Navigation>();
 
   return (
     <SafeAreaView edges={['left', 'right', 'bottom']} style={{ flex: 1 }}>

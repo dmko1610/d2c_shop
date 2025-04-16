@@ -3,9 +3,13 @@ import { observer } from 'mobx-react-lite';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
 import { Button, Divider, Text } from 'react-native-paper';
 import { cartStore } from '../stores/CartStore';
+import { RootStackParamList } from '../../App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
+type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 const ConfirmScreen = observer(() => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<Navigation>();
 
   const handleConfirm = () => {
     if (cartStore.total < 1000) {
@@ -19,10 +23,8 @@ const ConfirmScreen = observer(() => {
       {
         text: 'Confirm',
         onPress: () => {
-          Alert.alert('Thank you!')
           cartStore.clearCart();
-          navigation.goBack();
-
+          navigation.navigate("ThankYou");
         },
         style: 'default',
       },
