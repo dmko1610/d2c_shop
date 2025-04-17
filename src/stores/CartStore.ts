@@ -1,4 +1,4 @@
-import {makeAutoObservable} from 'mobx';
+import {makeAutoObservable, reaction, runInAction} from 'mobx';
 import {sendAnalyticsEvent} from '../api/analytics';
 
 export interface Product {
@@ -18,16 +18,24 @@ class CartStore {
 
   constructor() {
     makeAutoObservable(this);
+
+    reaction(
+      () => [this.items.map(i => i.id), this.options.map(o => o.id)],
+      async () => {
+        const success = await sendAnalyticsEvent(this.items, this.options);
+        runInAction(() => {
+          console.log(success ? 'Analytics sent' : 'Analytics failed');
+        });
+      },
+    );
   }
 
   addItem(product: Product) {
     this.items.push(product);
-    this.trackAnalytics();
   }
 
   removeItem(productId: string) {
     this.items = this.items.filter(item => item.id !== productId);
-    this.trackAnalytics();
   }
 
   toggleOption(option: Option) {
@@ -37,7 +45,6 @@ class CartStore {
     } else {
       this.options.push(option);
     }
-    this.trackAnalytics();
   }
 
   get total() {
@@ -49,15 +56,6 @@ class CartStore {
     this.options = [];
   }
 
-  private async trackAnalytics() {
-    const success = await sendAnalyticsEvent(this.items, this.options);
-
-    if (success) {
-      console.log('Analytics send successfully');
-    } else {
-      console.log('Analytics failed to send ');
-    }
-  }
 }
 
 export const cartStore = new CartStore();
