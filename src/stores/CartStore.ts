@@ -7,7 +7,7 @@ class CartStore {
   options: Option[] = [];
 
   constructor() {
-    makeAutoObservable(this);
+    makeAutoObservable(this, {}, { autoBind: true });
 
     reaction(
       () => [
