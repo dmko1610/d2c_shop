@@ -1,12 +1,13 @@
 import { observer } from 'mobx-react-lite';
 import { FlatList, StyleSheet, View } from 'react-native';
 import { Button, Card, Checkbox, Text } from 'react-native-paper';
-import { cartStore, Product } from '../stores/CartStore';
+import { cartStore } from '../stores/CartStore';
 import { ORDER_OPTIONS } from '../constants/orderOptions';
 import { useNavigation } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Product } from '../stores/types';
 
 const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
   id: `p${i}`,

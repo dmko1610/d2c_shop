@@ -1,7 +1,7 @@
 import { useNavigation } from '@react-navigation/native';
 import { observer } from 'mobx-react-lite';
 import { Alert, ScrollView, StyleSheet } from 'react-native';
-import { Button, Divider, Text } from 'react-native-paper';
+import { Button, Divider, List, Text } from 'react-native-paper';
 import { cartStore } from '../stores/CartStore';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
@@ -18,26 +18,32 @@ const ConfirmScreen = observer(() => {
       return;
     }
 
-    Alert.alert('Are you sure?', 'Money will be withdrawn from your account immediately', [
-      { text: 'Cancel', style: 'destructive' },
-      {
-        text: 'Confirm',
-        onPress: () => {
-          cartStore.clearCart();
-          navigation.navigate("ThankYou");
+    Alert.alert(
+      'Are you sure?',
+      'Money will be withdrawn from your account immediately',
+      [
+        { text: 'Cancel', style: 'destructive' },
+        {
+          text: 'Confirm',
+          onPress: () => {
+            cartStore.clearCart();
+            navigation.navigate('ThankYou');
+          },
+          style: 'default',
         },
-        style: 'default',
-      },
-    ]);
+      ],
+    );
   };
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <Text variant="titleLarge">Your order</Text>
-      {cartStore.items.map(item => (
-        <Text variant="titleSmall" key={item.id}>
-          {item.name} - {item.price} ₽
-        </Text>
+      {cartStore.items.map(({ product, quantity }) => (
+        <List.Item
+          key={product.id}
+          title={`${product.name} x${quantity}`}
+          description={`₽${product.price} x ${quantity} = ₽${product.price * quantity}`}
+        />
       ))}
 
       <Divider style={styles.divider} />
@@ -54,7 +60,6 @@ const ConfirmScreen = observer(() => {
       <Divider style={styles.divider} />
 
       <Text variant="titleLarge">Total: {cartStore.total} ₽</Text>
-
       <Button mode="contained" onPress={handleConfirm}>
         Confirm order
       </Button>

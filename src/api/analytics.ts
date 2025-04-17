@@ -1,7 +1,7 @@
-import {Option, Product} from '../stores/CartStore';
+import { CartItem, Option } from "../stores/types";
 
 export const sendAnalyticsEvent = async (
-  items: Product[],
+  items: CartItem[],
   options: Option[],
 ): Promise<boolean> => {
   try {
