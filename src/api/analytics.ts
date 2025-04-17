@@ -19,7 +19,7 @@ export const sendAnalyticsEvent = async (
     console.log('[analytics] Analytics sent successfully');
     return true;
   } catch (err) {
-    console.warn('[analytics] Analytics failed to send');
+    console.warn('[analytics] Something went wrong');
     return false;
   }
 };
