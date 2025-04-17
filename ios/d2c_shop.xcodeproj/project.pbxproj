@@ -24,6 +24,8 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-d2c_shop.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-d2c_shop.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		761780EC2CA45674006654EE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = d2c_shop/AppDelegate.swift; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = d2c_shop/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		92D09FBB2DB0FC5000F9EC58 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = ../android/app/build/intermediates/ReactNativeVectorIcons/fonts/MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
+		92D09FBD2DB0FC8700F9EC58 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = ../MaterialCommunityIcons.ttf; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -70,6 +72,8 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				92D09FBB2DB0FC5000F9EC58 /* MaterialCommunityIcons.ttf */,
+				92D09FBD2DB0FC8700F9EC58 /* MaterialCommunityIcons.ttf */,
 				13B07FAE1A68108700A75B9A /* d2c_shop */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				83CBBA001A601CBA00E9B192 /* Products */,
