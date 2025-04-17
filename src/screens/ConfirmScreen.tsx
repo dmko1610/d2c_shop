@@ -5,6 +5,7 @@ import { Button, Divider, List, Text } from 'react-native-paper';
 import { cartStore } from '../stores/CartStore';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
@@ -36,34 +37,37 @@ const ConfirmScreen = observer(() => {
   };
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      <Text variant="titleLarge">Your order</Text>
-      {cartStore.items.map(({ product, quantity }) => (
-        <List.Item
-          key={product.id}
-          title={`${product.name} x${quantity}`}
-          description={`₽${product.price} x ${quantity} = ₽${product.price * quantity}`}
-        />
-      ))}
+    <SafeAreaView edges={['left', 'right', 'bottom', 'top']}>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text variant="titleLarge">Your order</Text>
+        {cartStore.items.map(({ product, quantity }) => (
+          <List.Item
+            key={product.id}
+            title={`${product.name} x${quantity}`}
+            description={`₽${product.price} x ${quantity} = ₽${product.price * quantity
+              }`}
+          />
+        ))}
 
-      <Divider style={styles.divider} />
+        <Divider style={styles.divider} />
 
-      {cartStore.options.length > 0 && (
-        <>
-          <Text variant="titleMedium">Options: </Text>
-          {cartStore.options.map(opt => (
-            <Text key={opt.id}>{opt.label}</Text>
-          ))}
-        </>
-      )}
+        {cartStore.options.length > 0 && (
+          <>
+            <Text variant="titleMedium">Options: </Text>
+            {cartStore.options.map(opt => (
+              <Text key={opt.id}>{opt.label}</Text>
+            ))}
+          </>
+        )}
 
-      <Divider style={styles.divider} />
+        <Divider style={styles.divider} />
 
-      <Text variant="titleLarge">Total: {cartStore.total} ₽</Text>
-      <Button mode="contained" onPress={handleConfirm}>
-        Confirm order
-      </Button>
-    </ScrollView>
+        <Text variant="titleLarge">Total: {cartStore.total} ₽</Text>
+        <Button mode="contained" onPress={handleConfirm}>
+          Confirm order
+        </Button>
+      </ScrollView>
+    </SafeAreaView>
   );
 });
 

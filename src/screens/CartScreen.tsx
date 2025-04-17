@@ -21,7 +21,7 @@ const CartScreen = observer(() => {
   const navigaiton = useNavigation<Navigation>();
 
   return (
-    <SafeAreaView edges={['left', 'right', 'bottom']} style={{ flex: 1 }}>
+    <SafeAreaView edges={['left', 'right', 'bottom', 'top']} style={{ flex: 1 }}>
       <View style={styles.cart}>
         <Text variant="titleLarge" style={styles.cartTitle}>
           Products

@@ -23,14 +23,18 @@ export default function App() {
           <Stack.Screen
             name="Cart"
             component={CartScreen}
-            options={{ title: 'Cart' }}
+            options={{ headerShown: false }}
           />
           <Stack.Screen
             name="Confirm"
             component={ConfirmScreen}
-            options={{ title: 'Confirmation' }}
+            options={{ headerShown: false }}
           />
-          <Stack.Screen name="ThankYou" component={ThankYouScreen} />
+          <Stack.Screen
+            name="ThankYou"
+            component={ThankYouScreen}
+            options={{ headerShown: false, gestureEnabled: false }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
