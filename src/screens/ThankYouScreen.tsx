@@ -1,5 +1,5 @@
 import { useNavigation } from '@react-navigation/native';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { Button, Icon, Text } from 'react-native-paper';
 import { RootStackParamList } from '../../App';
@@ -9,11 +9,18 @@ type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
 export default function ThankYouScreen() {
   const navigation = useNavigation<Navigation>();
+  const [countdown, setCountdown] = useState(3);
+
 
   useEffect(() => {
+    const interval = setInterval(() => {
+      setCountdown(prev => prev - 1)
+    }, 1000)
+
     const timer = setTimeout(() => { navigation.navigate('Cart') }, 4000)
-    return () => clearTimeout(timer);
-  }, []);
+
+    return () => { clearTimeout(timer); clearInterval(interval) };
+  }, [navigation]);
 
   return (
     <View style={styles.container}>
@@ -22,7 +29,7 @@ export default function ThankYouScreen() {
         Thank you!
       </Text>
       <Text style={styles.message} variant="bodyLarge">
-        We've already started assembling it. Heading back to the main page...
+        We've already started assembling it. Heading back to the main page in {countdown}
       </Text>
 
       <Button mode="outlined" onPress={() => navigation.navigate('Cart')}>
