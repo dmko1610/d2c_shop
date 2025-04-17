@@ -51,19 +51,19 @@ const ConfirmScreen = observer(() => {
 
         <Divider style={styles.divider} />
 
-        {cartStore.options.length > 0 && (
+        {cartStore.options.length > 0 ? (
           <>
             <Text variant="titleMedium">Options: </Text>
             {cartStore.options.map(opt => (
               <Text key={opt.id}>{opt.label}</Text>
             ))}
           </>
-        )}
+        ) : <Text variant='titleMedium'>No options chosen</Text>}
 
         <Divider style={styles.divider} />
 
         <Text variant="titleLarge">Total: {cartStore.total} ₽</Text>
-        <Button mode="contained" onPress={handleConfirm}>
+        <Button mode="contained" onPress={handleConfirm} style={styles.confirmButton}>
           Confirm order
         </Button>
       </ScrollView>
@@ -76,4 +76,5 @@ export default ConfirmScreen;
 const styles = StyleSheet.create({
   container: { padding: 16 },
   divider: { marginVertical: 16 },
+  confirmButton: { marginTop: 32, },
 });

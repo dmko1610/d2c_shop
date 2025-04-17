@@ -1,7 +1,7 @@
-import {useNavigation} from '@react-navigation/native';
-import {useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {Button, Text} from 'react-native-paper';
+import { useNavigation } from '@react-navigation/native';
+import { useEffect } from 'react';
+import { StyleSheet, View } from 'react-native';
+import { Button, Icon, Text } from 'react-native-paper';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -17,6 +17,7 @@ export default function ThankYouScreen() {
 
   return (
     <View style={styles.container}>
+      <Icon source={"heart"} size={100} color='#7dC545' />
       <Text style={styles.title} variant="headlineMedium">
         Thank you!
       </Text>
