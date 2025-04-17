@@ -1,11 +1,11 @@
-import {useNavigation} from '@react-navigation/native';
-import {observer} from 'mobx-react-lite';
-import {Alert, ScrollView, StyleSheet} from 'react-native';
-import {Button, Divider, List, Text} from 'react-native-paper';
-import {cartStore} from '../stores/CartStore';
-import {RootStackParamList} from '../../App';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { useNavigation } from '@react-navigation/native';
+import { observer } from 'mobx-react-lite';
+import { Alert, ScrollView, StyleSheet } from 'react-native';
+import { Button, Divider, List, Text } from 'react-native-paper';
+import { cartStore } from '../stores/CartStore';
+import { RootStackParamList } from '../../App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
@@ -23,7 +23,7 @@ const ConfirmScreen = observer(() => {
       'Are you sure?',
       'Money will be withdrawn from your account immediately',
       [
-        {text: 'Cancel', style: 'destructive'},
+        { text: 'Cancel', style: 'destructive' },
         {
           text: 'Confirm',
           onPress: () => {
@@ -40,13 +40,12 @@ const ConfirmScreen = observer(() => {
     <SafeAreaView edges={['left', 'right', 'bottom', 'top']}>
       <ScrollView contentContainerStyle={styles.container}>
         <Text variant="titleLarge">Your order</Text>
-        {cartStore.items.map(({product, quantity}) => (
+        {cartStore.items.map(({ product, quantity }) => (
           <List.Item
             key={product.id}
             title={`${product.name} x${quantity}`}
-            description={`₽${product.price} x ${quantity} = ₽${
-              product.price * quantity
-            }`}
+            description={`₽${product.price} x ${quantity} = ₽${product.price * quantity
+              }`}
           />
         ))}
 
@@ -81,7 +80,7 @@ const ConfirmScreen = observer(() => {
 export default ConfirmScreen;
 
 const styles = StyleSheet.create({
-  container: {padding: 16},
-  divider: {marginVertical: 16},
-  confirmButton: {marginTop: 32},
+  container: { padding: 16 },
+  divider: { marginVertical: 16 },
+  confirmButton: { marginTop: 32 },
 });

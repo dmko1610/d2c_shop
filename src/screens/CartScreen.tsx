@@ -1,23 +1,23 @@
-import {observer} from 'mobx-react-lite';
-import {FlatList, StyleSheet, View} from 'react-native';
-import {Button, Card, Checkbox, Text} from 'react-native-paper';
-import {cartStore} from '../stores/CartStore';
-import {ORDER_OPTIONS} from '../constants/orderOptions';
-import {useNavigation} from '@react-navigation/native';
-import {SafeAreaView} from 'react-native-safe-area-context';
-import {RootStackParamList} from '../../App';
-import {NativeStackNavigationProp} from '@react-navigation/native-stack';
-import {Product} from '../stores/types';
+import { observer } from 'mobx-react-lite';
+import { FlatList, StyleSheet, View } from 'react-native';
+import { Button, Card, Checkbox, Text } from 'react-native-paper';
+import { cartStore } from '../stores/CartStore';
+import { ORDER_OPTIONS } from '../constants/orderOptions';
+import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { RootStackParamList } from '../../App';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { Product } from '../stores/types';
 
 // "REAL" DATA
-const sampleProducts: Product[] = Array.from({length: 1000}).map((_, i) => ({
+const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
   id: `p${i}`,
   name: `Product ${i + 1}`,
   price: 150 + i * 10,
 }));
 
 // DATA FOR TESTS
-const sampleProductsForTests: Product[] = Array.from({length: 3}).map(
+const sampleProductsForTests: Product[] = Array.from({ length: 3 }).map(
   (_, i) => ({
     id: `p${i}`,
     name: `Product ${i + 1}`,
@@ -41,7 +41,7 @@ const CartScreen = observer(() => {
         <FlatList
           data={sampleProductsForTests}
           keyExtractor={item => item.id}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <Card style={styles.cartItem}>
               <Card.Title title={item.name} subtitle={`₽${item.price}`} />
               <Card.Actions>
@@ -65,6 +65,7 @@ const CartScreen = observer(() => {
         <Text variant="titleLarge" style={styles.deliveryOptionsText}>
           Delivery options
         </Text>
+
         {ORDER_OPTIONS.map(option => (
           <Checkbox.Item
             key={option.id}
@@ -78,6 +79,7 @@ const CartScreen = observer(() => {
             testID="optionCheckbox"
           />
         ))}
+
         <Text variant="titleMedium" style={styles.total}>
           Total ₽{cartStore.total}
         </Text>
@@ -95,13 +97,13 @@ const CartScreen = observer(() => {
 export default CartScreen;
 
 const styles = StyleSheet.create({
-  container: {flex: 1},
-  cart: {flex: 1, padding: 16},
-  cartTitle: {marginBottom: 12},
-  cartItem: {marginBottom: 10},
-  total: {marginTop: 20},
-  deliveryOptionsText: {marginTop: 20},
-  checkoutButton: {marginTop: 16},
+  container: { flex: 1 },
+  cart: { flex: 1, padding: 16 },
+  cartTitle: { marginBottom: 12 },
+  cartItem: { marginBottom: 10 },
+  total: { marginTop: 20 },
+  deliveryOptionsText: { marginTop: 20 },
+  checkoutButton: { marginTop: 16 },
   bottomSection: {
     paddingHorizontal: 16,
     paddingBottom: 16,

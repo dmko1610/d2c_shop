@@ -29,6 +29,7 @@ export default function ThankYouScreen() {
   return (
     <View style={styles.container}>
       <Icon source={'heart'} size={100} color="#7dC545" />
+
       <Text style={styles.title} variant="headlineMedium">
         Thank you!
       </Text>
