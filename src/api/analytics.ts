@@ -1,4 +1,4 @@
-import { CartItem, Option } from "../stores/types";
+import { CartItem, Option } from '../stores/types';
 
 export const sendAnalyticsEvent = async (
   items: CartItem[],
@@ -7,7 +7,7 @@ export const sendAnalyticsEvent = async (
   try {
     console.log(
       'Send analytics...',
-      JSON.stringify({items, options}, null, ' '),
+      JSON.stringify({ items, options }, null, ' '),
     );
 
     await new Promise(resolve => setTimeout(resolve, 1000));

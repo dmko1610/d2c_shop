@@ -1,4 +1,4 @@
-import { Option } from "../stores/types";
+import { Option } from '../stores/types';
 
 export const ORDER_OPTIONS: Option[] = [
   { id: 'leave_at_door', label: 'Leave at the door' },

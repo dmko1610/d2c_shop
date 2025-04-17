@@ -4,7 +4,6 @@ import {
   fireEvent,
   waitFor,
 } from '@testing-library/react-native';
-import {useNavigation} from '@react-navigation/native';
 import ThankYouScreen from '../src/screens/ThankYouScreen';
 
 const mockNavigate = jest.fn();
