@@ -1,6 +1,6 @@
 import {observer} from 'mobx-react-lite';
 import {FlatList, StyleSheet, View} from 'react-native';
-import {Button, Card, Checkbox, Surface, Text} from 'react-native-paper';
+import {Button, Card, Checkbox, Text} from 'react-native-paper';
 import {cartStore} from '../stores/CartStore';
 import {ORDER_OPTIONS} from '../constants/orderOptions';
 import {useNavigation} from '@react-navigation/native';
@@ -31,7 +31,9 @@ const CartScreen = observer(() => {
   const navigaiton = useNavigation<Navigation>();
 
   return (
-    <SafeAreaView edges={['left', 'right', 'bottom', 'top']} style={{flex: 1}}>
+    <SafeAreaView
+      edges={['left', 'right', 'bottom', 'top']}
+      style={styles.container}>
       <View style={styles.cart}>
         <Text variant="titleLarge" style={styles.cartTitle}>
           Products
@@ -73,7 +75,7 @@ const CartScreen = observer(() => {
                 : 'unchecked'
             }
             onPress={() => cartStore.toggleOption(option)}
-            testID='optionCheckbox'
+            testID="optionCheckbox"
           />
         ))}
         <Text variant="titleMedium" style={styles.total}>
@@ -93,6 +95,7 @@ const CartScreen = observer(() => {
 export default CartScreen;
 
 const styles = StyleSheet.create({
+  container: {flex: 1},
   cart: {flex: 1, padding: 16},
   cartTitle: {marginBottom: 12},
   cartItem: {marginBottom: 10},
