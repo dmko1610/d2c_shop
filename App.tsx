@@ -26,7 +26,7 @@ export default function App() {
           <Stack.Screen
             name="Cart"
             component={CartScreen}
-            options={{headerShown: false}}
+            options={{headerShown: false, gestureEnabled: false}}
           />
           <Stack.Screen
             name="Confirm"
