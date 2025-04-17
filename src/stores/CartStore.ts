@@ -64,6 +64,17 @@ class CartStore {
     this.items = [];
     this.options = [];
   }
+
+  toPayload() {
+    return {
+      items: this.items.map(item => ({
+        productId: item.product.id,
+        quantity: item.quantity,
+      })),
+      total: this.total,
+      options: this.options,
+    };
+  }
 }
 
 export const cartStore = new CartStore();

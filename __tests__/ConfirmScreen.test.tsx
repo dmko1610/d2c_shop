@@ -1,5 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import {
+  act,
   fireEvent,
   render,
   screen,
@@ -8,10 +9,17 @@ import {
 import { Alert } from 'react-native';
 import ConfirmScreen from '../src/screens/ConfirmScreen';
 import { cartStore } from '../src/stores/CartStore';
+import { submitOrderRandomError } from '../src/services/api';
 
 const mockNavigate = jest.fn();
 
 jest.mock('../src/api/analytics');
+jest.mock('../src/services/api', () => ({
+  submitOrderRandomError: jest.fn(),
+}));
+jest.mock('../src/utils/handleApiError', () => ({
+  handleApiError: jest.fn(),
+}));
 jest.mock('@react-navigation/native', () => {
   const actualNav = jest.requireActual('@react-navigation/native');
   return {
@@ -33,6 +41,11 @@ function renderConfirmScreen() {
 }
 
 describe('Confirm Screen', () => {
+  beforeEach(() => {
+    cartStore.clearCart();
+    cartStore.addItem({ id: '1', name: 'Item 1', price: 1000 });
+  });
+
   it('displays alert when total is less than 1000 ₽', async () => {
     cartStore.items = [
       { product: { id: 'p1', name: 'Product 1', price: 500 }, quantity: 1 },
@@ -50,9 +63,6 @@ describe('Confirm Screen', () => {
   });
 
   it('displays the confirm alert', async () => {
-    cartStore.items = [
-      { product: { id: 'p1', name: 'Product 1', price: 700 }, quantity: 2 },
-    ];
     const navigateMock = jest.fn();
     jest
       .spyOn(require('@react-navigation/native'), 'useNavigation')
@@ -71,5 +81,31 @@ describe('Confirm Screen', () => {
         expect.anything(),
       ),
     );
+  });
+
+  xit('navigates to ThankYou on successful order', async () => {
+    submitOrderRandomError.mockResolvedValueOnce({
+      message: 'Order submitted successfully',
+    });
+
+    renderConfirmScreen();
+
+    const confirmButton = screen.getByTestId('confirmButton');
+    fireEvent.press(confirmButton);
+
+    await waitFor(() => {
+      expect(Alert.alert).toHaveBeenCalledWith(
+        'Are you sure?',
+        expect.any(String),
+        expect.any(Array),
+      );
+    });
+
+    const alertButtons = Alert.alert.mock.calls[0][2];
+    await act(() => alertButtons[1].onPress());
+
+    await waitFor(() => {
+      expect(mockNavigate).toHaveBeenCalledWith('ThankYou');
+    });
   });
 });

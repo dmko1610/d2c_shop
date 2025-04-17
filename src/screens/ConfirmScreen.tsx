@@ -6,6 +6,8 @@ import { cartStore } from '../stores/CartStore';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { handleApiError } from '../utils/handleApiError';
+import { submitOrderRandomError } from '../services/api';
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
 
@@ -26,9 +28,14 @@ const ConfirmScreen = observer(() => {
         { text: 'Cancel', style: 'destructive' },
         {
           text: 'Confirm',
-          onPress: () => {
-            cartStore.clearCart();
-            navigation.navigate('ThankYou');
+          onPress: async () => {
+            try {
+              await submitOrderRandomError(cartStore.toPayload());
+              cartStore.clearCart();
+              navigation.navigate('ThankYou');
+            } catch (error) {
+              handleApiError(error);
+            }
           },
           style: 'default',
         },
