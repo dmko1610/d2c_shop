@@ -8,6 +8,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { RootStackParamList } from '../../App';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { Product } from '../stores/types';
+import React from 'react';
 
 // "REAL" DATA
 const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
@@ -16,16 +17,31 @@ const sampleProducts: Product[] = Array.from({ length: 1000 }).map((_, i) => ({
   price: 150 + i * 10,
 }));
 
-// DATA FOR TESTS
-const sampleProductsForTests: Product[] = Array.from({ length: 3 }).map(
-  (_, i) => ({
-    id: `p${i}`,
-    name: `Product ${i + 1}`,
-    price: 150 + i * 10,
-  }),
-);
+// const sampleProductsForTests: Product[] = Array.from({ length: 3 }).map(
+//   (_, i) => ({
+//     id: `p${i}`,
+//     name: `Product ${i + 1}`,
+//     price: 150 + i * 10,
+//   }),
+// );
 
 type Navigation = NativeStackNavigationProp<RootStackParamList>;
+
+const CartItem = React.memo(({ item }: { item: Product }) => (
+  <Card style={styles.cartItem}>
+    <Card.Title title={item.name} subtitle={`₽${item.price}`} />
+    <Card.Actions>
+      <Button onPress={() => cartStore.addItem(item)} testID="addButton">
+        Add
+      </Button>
+      <Button
+        onPress={() => cartStore.removeItem(item.id)}
+        testID="removeButton">
+        Remove
+      </Button>
+    </Card.Actions>
+  </Card>
+));
 
 const CartScreen = observer(() => {
   const navigaiton = useNavigation<Navigation>();
@@ -39,25 +55,11 @@ const CartScreen = observer(() => {
           Products
         </Text>
         <FlatList
-          data={sampleProductsForTests}
+          data={sampleProducts}
           keyExtractor={item => item.id}
-          renderItem={({ item }) => (
-            <Card style={styles.cartItem}>
-              <Card.Title title={item.name} subtitle={`₽${item.price}`} />
-              <Card.Actions>
-                <Button
-                  onPress={() => cartStore.addItem(item)}
-                  testID="addButton">
-                  Add
-                </Button>
-                <Button
-                  onPress={() => cartStore.removeItem(item.id)}
-                  testID="removeButton">
-                  Remove
-                </Button>
-              </Card.Actions>
-            </Card>
-          )}
+          renderItem={({ item }) => <CartItem item={item} />}
+          initialNumToRender={10}
+          windowSize={5}
         />
       </View>
 
